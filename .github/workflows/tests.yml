@@ -2,16 +2,16 @@ name: Tests
 
 on:
   push:
-    branches: [main]
+    branches: [main, development]
   pull_request:
-    branches: [main]
+    branches: [main, development]
   workflow_dispatch:
 
-# A publish sweep pushes every package within seconds of the others. Superseding
-# this repository's previous run keeps a re-publish from stacking on a sweep that
-# has not finished.
+permissions:
+  contents: read
+
 concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
+  group: module-manager-filament-tests-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
