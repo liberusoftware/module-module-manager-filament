@@ -2,26 +2,21 @@ name: Tests
 
 on:
   push:
-    branches: [main, development]
+    branches: [main]
   pull_request:
-    branches: [main, development]
+    branches: [main]
   workflow_dispatch:
 
-permissions:
-  contents: read
-
+# A publish sweep pushes every package within seconds of the others. Superseding
+# this repository's previous run keeps a re-publish from stacking on a sweep that
+# has not finished.
 concurrency:
-  group: module-manager-filament-tests-${{ github.ref }}
+  group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
   tests:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
-      - uses: shivammathur/setup-php@eb7c497e18156a6bbabfef1d3a82760b9eda3962 # 2.40.0
-        with:
-          php-version: '8.5'
-          extensions: mbstring, pdo, pdo_sqlite, sqlite3, dom, curl, intl
-      - run: composer install --no-interaction --prefer-dist --optimize-autoloader
-      - run: vendor/bin/pest --coverage --min=100
+    uses: liberusoftware/.github/.github/workflows/package-tests.yml@75d1786646b095ba49360f735f27e0b2fa932b8d # main
+    with:
+      phpstan-level: 5
+      coverage-threshold: 12
