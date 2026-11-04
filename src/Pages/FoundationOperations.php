@@ -3,6 +3,7 @@
 namespace Liberu\Foundation\ModuleManagerFilament\Pages;
 
 use Filament\Pages\Page;
+use Liberu\Foundation\ModuleManager\ModuleInventory;
 use Liberu\Foundation\ModuleManager\ModuleRegistry;
 use Liberu\Foundation\Observability\Contracts\ObservabilityActor;
 
@@ -21,6 +22,16 @@ final class FoundationOperations extends Page
     public function mount(ModuleRegistry $registry): void
     {
         $this->modules = array_map(fn ($manifest) => $manifest->toArray(), $registry->all());
+
+        // Older module-manager releases have no inventory, and the page keeps working without it.
+        if (! class_exists(ModuleInventory::class) || ! app()->bound(ModuleInventory::class)) {
+            return;
+        }
+
+        foreach (app(ModuleInventory::class)->rows() as $name => $row) {
+            $this->modules[$name] = ($this->modules[$name] ?? ['display_name' => $name, 'version' => $row['version'], 'capabilities' => []])
+                + ['kind' => $row['kind'], 'status' => $row['status'], 'problems' => $row['problems']];
+        }
     }
 
     public static function canAccess(): bool
