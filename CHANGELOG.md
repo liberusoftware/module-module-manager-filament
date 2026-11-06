@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 1.7.0 - 2026-11-06
 
 - Authorize the page through a `viewModuleDiagnostics` gate the host defines, and stop requiring `liberusoftware/observability`. Without the gate, a user implementing `ObservabilityActor` still gets in through `isAdmin()`, so existing hosts keep working; with neither, access is denied.
 
