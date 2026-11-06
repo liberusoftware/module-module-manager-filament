@@ -6,8 +6,10 @@
   "require": {
     "php": "^8.5",
     "filament/filament": "^5.11.0",
-    "liberusoftware/module-manager": "^1.0",
-    "liberusoftware/observability": "^1.0"
+    "liberusoftware/module-manager": "^1.0"
+  },
+  "suggest": {
+    "liberusoftware/observability": "Lets users implementing ObservabilityActor reach the page when the application defines no viewModuleDiagnostics gate."
   },
   "autoload": {
     "psr-4": {
