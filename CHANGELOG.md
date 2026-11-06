@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 1.6.0 - 2026-11-06
 
 - Show each module's kind, status and problems, including modules that failed to load, when the installed `module-manager` provides `ModuleInventory`. With an older release the page is unchanged.
 
