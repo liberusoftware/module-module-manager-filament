@@ -25,7 +25,7 @@ Authorized installed-module diagnostics for the admin panel. This repository own
 | `php` | `^8.5` |
 | `filament/filament` | `^5.0` |
 | `liberusoftware/module-manager` | `^1.0` |
-| `liberusoftware/observability` | `^1.0` |
+| `liberusoftware/observability` | optional, see below |
 
 Install the released package from the project root:
 
@@ -59,6 +59,13 @@ The trusted `liberusoftware/composer-installer` places it in `/modules/module-ma
 ### Persistence and permissions
 
 - This package owns no database migration.
+- The page is shown to users the `viewModuleDiagnostics` gate allows. Define it in the host:
+
+  ```php
+  Gate::define('viewModuleDiagnostics', fn (User $user) => $user->can('manage_modules'));
+  ```
+
+  Without that gate, the page falls back to `liberusoftware/observability`'s `ObservabilityActor::isAdmin()` when observability is installed, and is denied to everyone otherwise.
 
 Authorization remains the host application's responsibility unless a public authorizer contract is listed above. Consumers should grant only the permissions needed for the exported capabilities and must not couple to internal tables or classes.
 

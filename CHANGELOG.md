@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.7.0 - 2026-11-06
+
+- Authorize the page through a `viewModuleDiagnostics` gate the host defines, and stop requiring `liberusoftware/observability`. Without the gate, a user implementing `ObservabilityActor` still gets in through `isAdmin()`, so existing hosts keep working; with neither, access is denied.
+
 ## 1.6.0 - 2026-11-06
 
 - Show each module's kind, status and problems, including modules that failed to load, when the installed `module-manager` provides `ModuleInventory`. With an older release the page is unchanged.
