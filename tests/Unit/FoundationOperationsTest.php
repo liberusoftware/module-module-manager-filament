@@ -26,7 +26,7 @@ beforeEach(function () {
 
 it('lists installed modules from the registry alone', function () {
     app()->forgetInstance(ModuleInventory::class);
-    $page = new FoundationOperations;
+    $page = new FoundationOperations();
 
     $page->mount(new ModuleRegistry(['good' => operationsManifest('good')]));
 
@@ -46,7 +46,7 @@ it('adds status, and shows modules that failed to load, when the manager provide
         ['broken' => ['Syntax error']],
         ['good'],
     ));
-    $page = new FoundationOperations;
+    $page = new FoundationOperations();
 
     $page->mount(new ModuleRegistry(['good' => $good, 'off' => $off]));
 
