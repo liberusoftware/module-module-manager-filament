@@ -1,6 +1,6 @@
 # Changelog
 
-## 1.8.0 - Unreleased
+## 1.8.0 - 2026-11-10
 
 - Add the Modules page: installed modules with their version and status, and working Enable and Disable actions. Access follows the host's `manageModules` gate and is denied when it is not defined.
 

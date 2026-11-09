@@ -10,17 +10,17 @@ use Liberu\Foundation\ModuleManagerFilament\Pages\ModuleManagement;
 it('is denied to guests, and to everyone when the host defines no gate', function () {
     expect(ModuleManagement::canAccess())->toBeFalse();
 
-    $this->actingAs(new User);
+    $this->actingAs(new User());
     expect(ModuleManagement::canAccess())->toBeFalse();
 });
 
 it('follows the host gate', function () {
     Gate::define(ModuleManagement::ABILITY, fn (User $user) => $user->getAttribute('ops') === true);
 
-    $this->actingAs((new User)->forceFill(['ops' => true]));
+    $this->actingAs((new User())->forceFill(['ops' => true]));
     expect(ModuleManagement::canAccess())->toBeTrue();
 
-    $this->actingAs((new User)->forceFill(['ops' => false]));
+    $this->actingAs((new User())->forceFill(['ops' => false]));
     expect(ModuleManagement::canAccess())->toBeFalse();
 });
 
