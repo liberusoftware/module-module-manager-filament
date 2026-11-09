@@ -5,12 +5,13 @@ namespace Liberu\Foundation\ModuleManagerFilament;
 use Filament\Contracts\Plugin;
 use Filament\Panel;
 use Liberu\Foundation\ModuleManagerFilament\Pages\FoundationOperations;
+use Liberu\Foundation\ModuleManagerFilament\Pages\ModuleManagement;
 
 final class ModuleManagerFilamentPlugin implements Plugin
 {
     public static function make(): self
     {
-        return new self();
+        return new self;
     }
 
     public function getId(): string
@@ -20,7 +21,7 @@ final class ModuleManagerFilamentPlugin implements Plugin
 
     public function register(Panel $panel): void
     {
-        $panel->pages([FoundationOperations::class]);
+        $panel->pages([FoundationOperations::class, ModuleManagement::class]);
     }
 
     public function boot(Panel $panel): void {}

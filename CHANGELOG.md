@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.8.0 - Unreleased
+
+- Add the Modules page: installed modules with their version and status, and working Enable and Disable actions. Access follows the host's `manageModules` gate and is denied when it is not defined.
+
 ## 1.7.0 - 2026-11-06
 
 - Authorize the page through a `viewModuleDiagnostics` gate the host defines, and stop requiring `liberusoftware/observability`. Without the gate, a user implementing `ObservabilityActor` still gets in through `isAdmin()`, so existing hosts keep working; with neither, access is denied.

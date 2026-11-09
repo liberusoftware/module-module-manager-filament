@@ -24,7 +24,7 @@ Authorized installed-module diagnostics for the admin panel. This repository own
 |---|---|
 | `php` | `^8.5` |
 | `filament/filament` | `^5.0` |
-| `liberusoftware/module-manager` | `^1.0` |
+| `liberusoftware/module-manager` | `^1.8` |
 | `liberusoftware/observability` | optional, see below |
 
 Install the released package from the project root:
