@@ -7,6 +7,7 @@ use Filament\Notifications\Notification;
 use Filament\Pages\Page;
 use Filament\Schemas\Components\EmbeddedTable;
 use Filament\Schemas\Schema;
+use Filament\Support\Enums\Size;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Concerns\InteractsWithTable;
 use Filament\Tables\Contracts\HasTable;
@@ -15,7 +16,7 @@ use Illuminate\Support\Facades\Gate;
 use Liberu\Foundation\ModuleManager\Exceptions\ModuleActivationRefused;
 use Liberu\Foundation\ModuleManager\ModuleManagement as Modules;
 
-/** Turns installed modules on and off. Installing and removing them is Composer's job. */
+/** Turns installed feature modules on and off. Installing and removing them is Composer's job. */
 final class ModuleManagement extends Page implements HasTable
 {
     use InteractsWithTable;
@@ -23,7 +24,7 @@ final class ModuleManagement extends Page implements HasTable
     /** Define this gate to decide who manages modules. Without it, nobody does. */
     public const ABILITY = 'manageModules';
 
-    private const SELF = 'module-manager-filament';
+    public const STATUS_LABELS = ['enabled' => 'Enabled', 'disabled' => 'Disabled', 'failed' => 'Failed'];
 
     protected static ?string $slug = 'modules';
 
@@ -50,27 +51,46 @@ final class ModuleManagement extends Page implements HasTable
         return $table
             ->records(fn (): array => $this->rows())
             ->paginated(false)
+            ->emptyStateIcon('heroicon-o-puzzle-piece')
+            ->emptyStateHeading('No feature modules are installed')
+            ->emptyStateDescription('Install one with composer require <package>, then enable it here.')
             ->columns([
-                TextColumn::make('name')->label('Module'),
-                TextColumn::make('version'),
-                TextColumn::make('status')->badge()->formatStateUsing(fn (string $state): string => ucfirst($state))
+                TextColumn::make('name')->label('Module')->weight('medium'),
+                TextColumn::make('version')->color('gray'),
+                TextColumn::make('status')
+                    ->badge()
+                    ->formatStateUsing(fn (string $state): string => self::STATUS_LABELS[$state] ?? ucfirst($state))
                     ->color(fn (string $state): string => match ($state) {
                         'enabled' => 'success',
                         'failed' => 'danger',
                         default => 'gray',
+                    })
+                    ->icon(fn (string $state): string => match ($state) {
+                        'enabled' => 'heroicon-m-check-circle',
+                        'failed' => 'heroicon-m-exclamation-triangle',
+                        default => 'heroicon-m-minus-circle',
                     }),
                 TextColumn::make('note')->label('')->wrap()->color('gray'),
             ])
             ->recordActions([
                 Action::make('enable')
-                    ->icon('heroicon-o-play')
+                    ->label('Enable')
+                    ->button()
+                    ->size(Size::Small)
+                    ->color('success')
+                    ->icon('heroicon-m-play')
                     ->visible(fn (array $record): bool => $record['changeable'] && $record['status'] === 'disabled')
                     ->action(fn (array $record) => $this->change($record['module'], true)),
                 Action::make('disable')
-                    ->icon('heroicon-o-pause')
+                    ->label('Disable')
+                    ->button()
+                    ->size(Size::Small)
                     ->color('danger')
+                    ->icon('heroicon-m-pause')
                     ->requiresConfirmation()
-                    ->modalDescription('It stops registering from the next request. The Composer package stays installed.')
+                    ->modalHeading(fn (array $record): string => "Disable {$record['name']}?")
+                    ->modalDescription('Its features and menu entries are removed from the next request. The Composer package stays installed.')
+                    ->modalSubmitActionLabel('Disable')
                     ->visible(fn (array $record): bool => $record['changeable'] && $record['status'] !== 'disabled')
                     ->action(fn (array $record) => $this->change($record['module'], false)),
             ]);
@@ -81,7 +101,6 @@ final class ModuleManagement extends Page implements HasTable
         abort_unless(self::canAccess(), 403);
 
         try {
-            abort_if($module === self::SELF, 403);
             $enable ? app(Modules::class)->enable($module) : app(Modules::class)->disable($module);
             Notification::make()->title($enable ? 'Module enabled' : 'Module disabled')->body('This takes effect from the next request.')->success()->send();
         } catch (ModuleActivationRefused $exception) {
@@ -97,9 +116,9 @@ final class ModuleManagement extends Page implements HasTable
         $rows = [];
 
         foreach (app(Modules::class)->modules() as $name => $module) {
-            $locked = $name === self::SELF ? 'This page is provided by this module.' : $module['locked'];
+            $note = $module['problems'] !== [] ? implode(' ', $module['problems']) : $module['locked'];
 
-            $rows[$name] = $module + ['changeable' => $locked === null, 'note' => $module['problems'] !== [] ? implode(' ', $module['problems']) : $locked];
+            $rows[$name] = $module + ['changeable' => $module['locked'] === null, 'note' => $note];
         }
 
         return $rows;
