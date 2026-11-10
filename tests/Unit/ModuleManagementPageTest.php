@@ -31,6 +31,16 @@ it('is served at /modules and registered by the plugin', function () {
     expect($source)->toContain('ModuleManagement::class');
 });
 
+it('describes each module with its manifest description', function () {
+    $source = (string) file_get_contents((new ReflectionClass(ModuleManagement::class))->getFileName());
+
+    expect($source)->toContain("->description(fn (array \$record): ?string => filled(\$record['description'] ?? null)");
+});
+
+it('labels every status the manager reports', function () {
+    expect(ModuleManagement::STATUS_LABELS)->toBe(['enabled' => 'Enabled', 'disabled' => 'Disabled', 'failed' => 'Failed']);
+});
+
 it('uses the manager for every change and has no store or application concepts', function () {
     expect(class_exists(Modules::class))->toBeTrue()->and(class_exists(ModuleActivationRefused::class))->toBeTrue();
 
