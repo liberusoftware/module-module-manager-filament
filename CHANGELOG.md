@@ -1,8 +1,9 @@
 # Changelog
 
-## 1.9.0 - Unreleased
+## 1.9.0 - 2026-11-10
 
 - The Modules page lists only feature modules, the ones whose manifest declares `"module_type": "feature"`; infrastructure no longer appears. Requires `liberusoftware/module-manager` ^1.9.
+- Each module's description from its manifest shows under its name.
 - Enable and Disable are solid buttons of the same size, and status is an Enabled, Disabled or Failed badge.
 - With no feature module installed, the table says so and how to install one with Composer.
 

@@ -55,7 +55,11 @@ final class ModuleManagement extends Page implements HasTable
             ->emptyStateHeading('No feature modules are installed')
             ->emptyStateDescription('Install one with composer require <package>, then enable it here.')
             ->columns([
-                TextColumn::make('name')->label('Module')->weight('medium'),
+                TextColumn::make('name')
+                    ->label('Module')
+                    ->weight('medium')
+                    ->description(fn (array $record): ?string => filled($record['description'] ?? null) ? $record['description'] : null)
+                    ->wrap(),
                 TextColumn::make('version')->color('gray'),
                 TextColumn::make('status')
                     ->badge()
