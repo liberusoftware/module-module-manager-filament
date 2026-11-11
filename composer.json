@@ -1,15 +1,12 @@
 {
   "name": "liberusoftware/module-manager-filament",
-  "description": "Filament operations presentation adapter for the Liberu Module Manager.",
+  "description": "Filament page for enabling and disabling Liberu feature modules.",
   "type": "liberu-module",
   "license": "MIT",
   "require": {
     "php": "^8.5",
     "filament/filament": "^5.11.0",
     "liberusoftware/module-manager": "^1.9"
-  },
-  "suggest": {
-    "liberusoftware/observability": "Lets users implementing ObservabilityActor reach the page when the application defines no viewModuleDiagnostics gate."
   },
   "autoload": {
     "psr-4": {
@@ -21,7 +18,7 @@
       "name": "module-manager-filament"
     }
   },
-  "version": "1.9.0",
+  "version": "1.10.0",
   "autoload-dev": {
     "psr-4": {
       "Liberu\\Foundation\\ModuleManagerFilament\\Tests\\": "tests/"

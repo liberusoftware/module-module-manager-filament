@@ -2,8 +2,8 @@
   "$schema": "https://schemas.liberu.dev/module/v1.json",
   "name": "module-manager-filament",
   "display_name": "Module Manager Administration",
-  "description": "Authorized installed-module diagnostics for the admin panel.",
-  "version": "1.9.0",
+  "description": "Admin panel page for enabling and disabling installed feature modules.",
+  "version": "1.10.0",
   "category": "presentation",
   "provider": "Liberu\\Foundation\\ModuleManagerFilament\\ModuleManagerFilamentServiceProvider",
   "requires": {
@@ -26,6 +26,6 @@
   ],
   "default_enabled": true,
   "features": [
-    "Authorized installed-module diagnostics for the admin panel"
+    "Admin panel page for enabling and disabling installed feature modules"
   ]
 }
