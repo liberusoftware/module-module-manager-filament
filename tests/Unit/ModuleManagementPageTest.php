@@ -37,6 +37,10 @@ it('describes each module with its manifest description', function () {
     expect($source)->toContain("->description(fn (array \$record): ?string => filled(\$record['description'] ?? null)");
 });
 
+it('sits in the Settings navigation group', function () {
+    expect((new ReflectionClass(ModuleManagement::class))->getStaticPropertyValue('navigationGroup'))->toBe('Settings');
+});
+
 it('labels every status the manager reports', function () {
     expect(ModuleManagement::STATUS_LABELS)->toBe(['enabled' => 'Enabled', 'disabled' => 'Disabled', 'failed' => 'Failed']);
 });

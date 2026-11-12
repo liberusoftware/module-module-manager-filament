@@ -3,7 +3,7 @@
   "name": "module-manager-filament",
   "display_name": "Module Manager Administration",
   "description": "Admin panel page for enabling and disabling installed feature modules.",
-  "version": "1.10.0",
+  "version": "1.11.0",
   "category": "presentation",
   "provider": "Liberu\\Foundation\\ModuleManagerFilament\\ModuleManagerFilamentServiceProvider",
   "requires": {
