@@ -32,7 +32,7 @@ final class ModuleManagement extends Page implements HasTable
 
     protected static string|\BackedEnum|null $navigationIcon = 'heroicon-o-puzzle-piece';
 
-    protected static string|\UnitEnum|null $navigationGroup = 'Operations';
+    protected static string|\UnitEnum|null $navigationGroup = 'Settings';
 
     public static function canAccess(): bool
     {

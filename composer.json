@@ -18,7 +18,7 @@
       "name": "module-manager-filament"
     }
   },
-  "version": "1.10.0",
+  "version": "1.11.0",
   "autoload-dev": {
     "psr-4": {
       "Liberu\\Foundation\\ModuleManagerFilament\\Tests\\": "tests/"

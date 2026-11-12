@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.11.0 - 2026-11-13
+
+- The Modules page moves from the Operations navigation group to Settings. Nothing else changes.
+
 ## 1.10.0 - 2026-11-11
 
 - Remove the Foundation Operations page (`/foundation-operations`) and its navigation entry. The Modules page is now the only page, and the `viewModuleDiagnostics` gate and the optional `liberusoftware/observability` suggestion are no longer used.
