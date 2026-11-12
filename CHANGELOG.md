@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.10.0 - 2026-11-11
+
+- Remove the Foundation Operations page (`/foundation-operations`) and its navigation entry. The Modules page is now the only page, and the `viewModuleDiagnostics` gate and the optional `liberusoftware/observability` suggestion are no longer used.
+
 ## 1.9.0 - 2026-11-10
 
 - The Modules page lists only feature modules, the ones whose manifest declares `"module_type": "feature"`; infrastructure no longer appears. Requires `liberusoftware/module-manager` ^1.9.

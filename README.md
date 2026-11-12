@@ -1,6 +1,6 @@
 # Liberu Module Manager Administration
 
-> Authorized installed-module diagnostics for the admin panel.
+> Admin panel page for enabling and disabling installed feature modules.
 
 [Software](https://liberusoftware.com) · [Hosting](https://liberuhosting.com) · [Services](https://liberuservices.com) · [Liberu Group](https://liberugroup.com)
 
@@ -8,7 +8,7 @@
 
 ## Feature scope
 
-Authorized installed-module diagnostics for the admin panel. This repository owns this capability as an independently versioned Composer package; hosts integrate it through its declared public boundaries rather than application-specific classes.
+Admin panel page for enabling and disabling installed feature modules. This repository owns this capability as an independently versioned Composer package; hosts integrate it through its declared public boundaries rather than application-specific classes.
 
 ### Capabilities
 
@@ -16,7 +16,7 @@ Authorized installed-module diagnostics for the admin panel. This repository own
 
 ### Declared features
 
-- Authorized installed-module diagnostics for the admin panel
+- Admin panel page for enabling and disabling installed feature modules
 
 ## Requirements and installation
 
@@ -24,8 +24,7 @@ Authorized installed-module diagnostics for the admin panel. This repository own
 |---|---|
 | `php` | `^8.5` |
 | `filament/filament` | `^5.0` |
-| `liberusoftware/module-manager` | `^1.8` |
-| `liberusoftware/observability` | optional, see below |
+| `liberusoftware/module-manager` | `^1.9` |
 
 Install the released package from the project root:
 
@@ -59,19 +58,17 @@ The trusted `liberusoftware/composer-installer` places it in `/modules/module-ma
 ### Persistence and permissions
 
 - This package owns no database migration.
-- The page is shown to users the `viewModuleDiagnostics` gate allows. Define it in the host:
+- The Modules page is shown to users the `manageModules` gate allows, and to nobody when the host does not define it:
 
   ```php
-  Gate::define('viewModuleDiagnostics', fn (User $user) => $user->can('manage_modules'));
+  Gate::define('manageModules', fn (User $user) => $user->can('manage_modules'));
   ```
-
-  Without that gate, the page falls back to `liberusoftware/observability`'s `ObservabilityActor::isAdmin()` when observability is installed, and is denied to everyone otherwise.
 
 Authorization remains the host application's responsibility unless a public authorizer contract is listed above. Consumers should grant only the permissions needed for the exported capabilities and must not couple to internal tables or classes.
 
 ## Testing
 
-The package includes 2 test file(s). From a compatible host checkout, run:
+The package includes 1 test file(s). From a compatible host checkout, run:
 
 ```bash
 vendor/bin/pest modules/module-manager-filament/tests
