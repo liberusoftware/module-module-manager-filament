@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.11.1 - 2026-11-14
+
+- Test real Filament module table rendering, action visibility, enabling and disabling, activation refusal and revoked authorization.
+- Require 100% native source coverage in CI.
+
 ## 1.11.0 - 2026-11-13
 
 - The Modules page moves from the Operations navigation group to Settings. Nothing else changes.
