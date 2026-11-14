@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.11.2 - 2026-11-14
+
+- Add host contract tests for the optional operations page, including guest, non-admin and admin access and registry projection.
+- These contracts run when a host provides the page and its observability actor contract; standalone packages without that extension skip them.
+
 ## 1.11.1 - 2026-11-14
 
 - Test real Filament module table rendering, action visibility, enabling and disabling, activation refusal and revoked authorization.
