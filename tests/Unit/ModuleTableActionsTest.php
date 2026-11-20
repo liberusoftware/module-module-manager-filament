@@ -33,7 +33,10 @@ final class TableFixtureProvider extends ServiceProvider {}
 beforeEach(function () {
     $this->fixtureRoot = sys_get_temp_dir().'/module-table-'.bin2hex(random_bytes(6));
     mkdir($this->fixtureRoot, 0777, true);
-    $this->originalComposer = require dirname(__DIR__, 2).'/vendor/composer/installed.php';
+    $installedPath = is_file(dirname(__DIR__, 2).'/vendor/composer/installed.php')
+        ? dirname(__DIR__, 2).'/vendor/composer/installed.php'
+        : dirname(__DIR__, 4).'/vendor/composer/installed.php';
+    $this->originalComposer = require $installedPath;
     $composer = $this->originalComposer;
     $manifests = [];
     foreach (['alpha' => false, 'beta' => true, 'broken' => true, 'locked' => true] as $name => $enabled) {
