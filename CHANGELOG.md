@@ -1,13 +1,5 @@
 # Changelog
 
-## 1.12.0 - 2026-11-20
-
-- Fall back to the host application's `vendor/composer/installed.php` in `ModuleTableActionsTest` when running inside a host repository.
-
-## 1.11.3 - 2026-11-18
-
-- Document the Filament schema table view surface (`THEMES.md` §5).
-
 ## 1.11.2 - 2026-11-14
 
 - Add host contract tests for the optional operations page, including guest, non-admin and admin access and registry projection.

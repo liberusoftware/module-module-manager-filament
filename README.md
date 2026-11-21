@@ -46,7 +46,6 @@ The trusted `liberusoftware/composer-installer` places it in `/modules/module-ma
 ### Public contracts
 
 - No separate contract type is declared; use the documented provider and capability boundary.
-- View surface: `ModuleManagement` renders through Filament's `EmbeddedTable` schema component and exposes no standalone custom Blade template (`THEMES.md` §5).
 
 ### Commands
 
